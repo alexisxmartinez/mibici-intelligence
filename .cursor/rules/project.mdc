@@ -1,0 +1,31 @@
+---
+description: MiBici Intelligence development rules
+alwaysApply: true
+---
+
+# Project
+Spanish-language mobility analytics app on MiBici open data (Guadalajara). Built solo in short sprints.
+The demo must run locally with no internet and no model. Anything that risks that is out of scope.
+
+# Architecture
+- `src/ingestion.py` loads and cleans. Do not change its column names: trips have start, end, origin_id, dest_id, minutes, hour, weekday, date.
+- `src/analytics.py` and `src/imbalance.py` are pure functions on DataFrames. No Streamlit, no LLM, no file access inside them.
+- `src/copilot.py` answers only by calling those functions as tools.
+- `src/llm.py` is the only place that talks to a model. Use `llm.chat()`. If it returns None, show the deterministic answer.
+- `app.py` is layout only. No calculations in it.
+
+# Data integrity
+- Never fabricate, estimate or hard-code a statistic. Every number on screen traces to a function in src.
+- Never drop rows silently. Use the CleanReport.
+- Flows are historical. Never state or imply how many bikes are at a station now.
+- Sample data under data/sample is synthetic. Label it on screen whenever it is in use.
+
+# Working style
+- Make `tests/test_analytics_spec.py` pass one function at a time. Do not edit the tests.
+- Run `pytest -q` after every change and fix failures before moving on.
+- Small functions, type hints, no new dependencies beyond requirements.txt.
+- UI text and model answers in Spanish. Code, comments and commit messages in English.
+- Commit after each passing step.
+
+# Out of scope
+Real-time APIs, authentication, databases, Docker, multi-agent setups, forecasting models, maps before everything else works.
