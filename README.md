@@ -41,6 +41,6 @@ streamlit run app.py
 
 ## Prototype: Pulso MiBici (3D map)
 
-`prototype/pulso-mibici.html` is a single-file 3D map built from the October 2026 open data (607,759 valid trips): stations as columns sized by trips and colored by whether they drain or fill, the busiest routes as arcs, and a replay of one weekday. Open it in a browser; it loads deck.gl from a CDN. `scripts/build_map_data.py` rebuilds its data from the raw files in `data/raw/`.
+`prototype/pulso-mibici.html` is a single-file 3D map built from the October 2026 open data (607,759 valid trips): stations as columns sized by trips and colored by whether they drain or fill, the busiest routes as arcs, and a replay of one weekday. Open it in any browser. It has no dependencies: the 3D view is drawn on a plain canvas. `scripts/build_map_data.py` rebuilds its data from the raw files in `data/raw/`.
 
 Observed in that data: the real trip file matches the loader's expected columns, but the station file has `dpcapacity` and no code column, and arrives in Latin-1. The network is closed roughly 01:00 to 05:00.
